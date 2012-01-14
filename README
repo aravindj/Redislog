@@ -1,0 +1,2 @@
+** Redislog is a simple application logger which uses redis as backend to
+log messages **

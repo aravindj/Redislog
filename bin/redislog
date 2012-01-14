@@ -1,0 +1,67 @@
+#!/usr/bin/env ruby
+require 'redislog'
+require 'choice'
+
+PROGRAM_VERSION = "1.0.0"
+Choice.options do
+    header ''
+    separator "Mandatory Arguments:"
+    
+    option :path, :required => true do
+        short "-d"
+        long "--directory=DIRECTORY"
+        desc "Path of the log files"
+    end
+
+    separator "Optional Arguments:"
+    
+    option :host do
+        short "-h"
+        long "--host=HOST"
+        desc "Redis server ip"
+        default "localhost"
+    end
+    
+    option :port do
+        short "-p"
+        long "--port=PORT"
+        desc "Redis server port"
+        default "6379"
+    end
+
+    option :db do
+        short "-d"
+        long "--db=DB"
+        desc "Redis database"
+        default "0"
+    end
+
+    option :filename do
+        short "-f"
+        long "--filename=FILENAME"
+        desc "Pattern of the logfile name"
+        default "Redislog"
+    end
+
+    separator 'Common Arguments:'
+    option :help do
+        short '-h'
+        long '--help'
+        desc 'Show this message.'
+    end
+    
+    option :version do
+      short '-v'
+      long '--version'
+      desc 'Show version'
+      action do
+        puts PROGRAM_VERSION
+        exit
+      end
+    end
+end
+
+logger = Redislog.new(:host => Choice.choices[:host],
+        :port => Choice.choices[:port].to_i,
+        :db => Choice.choices[:db])
+logger.write_log(Choice.choices[:path], Choice.choices[:filename])
