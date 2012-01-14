@@ -20,6 +20,22 @@ class Redislog
         @client = Redis.new(:host => host, :port => port, :db => db)
     end
     
+    def debug(msg)
+        log(msg, :debug)
+    end
+
+    def info(msg)
+        log(msg, :info)
+    end
+    
+    def error(msg)
+        log(msg, :error)
+    end
+
+    def critical(msg)
+        log(msg, :critical)
+    end
+        
     def log(msg, level = :debug)
         if @@levels[level] >= @@levels[@logger_level]
             current_time = Time.now
