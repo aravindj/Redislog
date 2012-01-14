@@ -10,5 +10,5 @@ Gem::Specification.new do |s|
   s.executables = ["redislog"]
   s.add_runtime_dependency  'redis'
   s.add_runtime_dependency  'choice'
-  s.homepage = ""
+  s.homepage = "https://github.com/aravindj/Redislog"
 end

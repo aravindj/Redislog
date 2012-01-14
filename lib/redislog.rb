@@ -26,7 +26,11 @@ class Redislog
             key =  if @prefix.nil? then current_time else "#{@prefix}:#{current_time.to_f}" end
             log_msg = "#{@prefix} | #{current_time.to_s} | #{level} | #{msg}"
             @client.set(key, log_msg)
-            @client.zadd("logger_keys", current_time.to_f, key)
+            @client.multi do
+                score = @client.zcard("logger_keys") || 0
+                @client.zadd("logger_keys", score+1, key)
+            end
+
         end
     end
     
