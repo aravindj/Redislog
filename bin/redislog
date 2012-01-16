@@ -30,8 +30,8 @@ Choice.options do
     end
 
     option :db do
-        short "-d"
-        long "--db=DB"
+        short "-D"
+        long "--DB=DB"
         desc "Redis database"
         default "0"
     end
