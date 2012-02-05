@@ -37,3 +37,5 @@ redislog command:
 Example log message in file:
 
     SERVER1 | 2012-01-16 22:55:22 +0530 | info | Info Msg
+
+Note: This have not been tested in production env yet.
